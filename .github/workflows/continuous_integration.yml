@@ -67,6 +67,8 @@ jobs:
     - name: Git describe
       id: ghd
       uses: proudust/gh-describe@v2
+      with:
+        token: ${{ secrets.GH_PAT }}
 
     - name: Configure
       shell: bash
