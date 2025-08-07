@@ -45,6 +45,7 @@ class PlayerPawn : Actor
 	double		AttackZOffset;			// attack height, relative to player center
 	double		UseRange;				// [NS] Distance at which player can +use
 	double		AirCapacity;			// Multiplier for air supply underwater.
+	double		AirControl;				// Аffects the players' air control
 	Class<Inventory> FlechetteType;
 	color 		DamageFade;				// [CW] Fades for when you are being damaged.
 	double		FlyBob;					// [B] Fly bobbing mulitplier
@@ -72,6 +73,7 @@ class PlayerPawn : Actor
 	property ViewHeight: ViewHeight;
 	property UseRange: UseRange;
 	property AirCapacity: AirCapacity;
+	property AirControl: AirControl;
 	property MaxHealth: MaxHealth;
 	property MugshotMaxHealth: MugshotMaxHealth;
 	property RunHealth: RunHealth;
@@ -131,6 +133,7 @@ class PlayerPawn : Actor
 		Player.MugShotMaxHealth 0;
 		Player.FlechetteType "ArtiPoisonBag3";
 		Player.AirCapacity 1;
+		Player.AirControl 1,0;
 		Player.FlyBob 1;
 		Player.ViewBob 1;
 		Player.ViewBobSpeed 20;
@@ -1287,8 +1290,11 @@ class PlayerPawn : Actor
 
 	virtual void ApplyAirControl(out double movefactor, out double bobfactor)
 	{
-		movefactor *= level.aircontrol;
-		bobfactor *= level.aircontrol;
+		// Combine the global map air control with the player's personal air control factor.
+		double total_aircontrol = level.aircontrol * aircontrol;
+		
+		movefactor *= total_aircontrol;
+		bobfactor *= total_aircontrol;
 	}
 
 	//----------------------------------------------------------------------------
