@@ -133,7 +133,7 @@ class PlayerPawn : Actor
 		Player.MugShotMaxHealth 0;
 		Player.FlechetteType "ArtiPoisonBag3";
 		Player.AirCapacity 1;
-		Player.AirControl 1,0;
+		Player.AirControl 1.0;
 		Player.FlyBob 1;
 		Player.ViewBob 1;
 		Player.ViewBobSpeed 20;
