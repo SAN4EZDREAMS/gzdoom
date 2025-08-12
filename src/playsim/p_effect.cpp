@@ -129,8 +129,9 @@ static void FreeParticle(FLevelLocals* Level, particle_t* particle)
 		assert(tnext == NO_PARTICLE);
 		Level->OldestParticle = particle->tprev;
 	}
-	memset(particle, 0, sizeof(particle_t));
-	particle->tnext = Level->InactiveParticles;
+	int next_inactive = Level->InactiveParticles;
+	*particle = particle_t();
+	particle->tnext = next_inactive;
 	Level->InactiveParticles = pindex;
 }
 
