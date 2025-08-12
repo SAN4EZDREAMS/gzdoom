@@ -2139,6 +2139,15 @@ void G_DoLoadGame ()
 
 	BackupSaveName = savename;
 
+	// [BUGFIX] Clear the travelling thinkers list after a load.
+	// If a game was loaded from an intermission screen, this list could
+	// contain dangling pointers to thinkers from the old, now destroyed level,
+	// causing a crash on the next level transition.
+	if (primaryLevel != nullptr)
+	{
+		primaryLevel->TravellingThinkers.Clear();
+	}
+
 	// At this point, the GC threshold is likely a lot higher than the
 	// amount of memory in use, so bring it down now by starting a
 	// collection.
